@@ -12,6 +12,18 @@ app.use(cors_1.default());
 //Access-Control-Allow-Origin: *
 app.use(body_parser_1.default.urlencoded({ limit: '50mb' }));
 app.use(body_parser_1.default.json({ limit: '50mb' }));
+app.all('/', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    next();
+});
+app.get('/', function (req, res, next) {
+    // Handle the get for this route
+});
+app.post('/', function (req, res, next) {
+    // Handle the post for this route
+});
 mongoose_1.default.connect('mongodb://localhost:27017/pictionary');
 const connection = mongoose_1.default.connection;
 connection.once('open', () => {

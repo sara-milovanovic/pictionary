@@ -3,14 +3,32 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
+const path= require ('path')
 const app = express();
-
+app.use(express.static(__dirname+'/dist/pictionary'))
+app.get('*', function(req, res){
+    res.sendFile(path.join(__dirname+'/dist/pictionary'))
+})
 
 app.use(cors());
 //Access-Control-Allow-Origin: *
 app.use(bodyParser.urlencoded({limit: '50mb'}));
 app.use(bodyParser.json({limit: '50mb'}));
 
+app.all('/', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    next()
+  });
+  app.get('/', function(req, res, next) {
+    // Handle the get for this route
+  });
+  app.post('/', function(req, res, next) {
+    // Handle the post for this route
+  })
+
+  
 mongoose.connect('mongodb://localhost:27017/pictionary');
 
 const connection = mongoose.connection;
