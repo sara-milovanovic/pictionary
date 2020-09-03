@@ -7,7 +7,12 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const path = require('path');
 const app = express_1.default();
+app.use(express_1.default.static(__dirname + '/dist/pictionary'));
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname + '/dist/pictionary'));
+});
 app.use(cors_1.default());
 //Access-Control-Allow-Origin: *
 app.use(body_parser_1.default.urlencoded({ limit: '50mb' }));
